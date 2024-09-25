@@ -1,5 +1,5 @@
-import { Component, DestroyRef, inject, input, OnInit, output, signal, WritableSignal, computed, Signal } from '@angular/core';
-import { MatFormField, MatInput, MatSuffix } from '@angular/material/input';
+import { Component, DestroyRef, inject, input, OnInit, output, signal, WritableSignal, computed, Signal, ChangeDetectionStrategy } from '@angular/core';
+import { MatFormField, MatInput, MatLabel, MatSuffix } from '@angular/material/input';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
@@ -14,9 +14,10 @@ type FilterForm = {
 @Component({
   selector: 'app-filter',
   standalone: true,
-  imports: [MatInput, MatFormField, ReactiveFormsModule, MatProgressSpinner, MatSuffix],
+  imports: [MatInput, MatFormField, ReactiveFormsModule, MatProgressSpinner, MatSuffix, MatLabel],
   templateUrl: './filter.component.html',
-  styleUrl: './filter.component.scss'
+  styleUrl: './filter.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterComponent<T> implements OnInit {
   isFiltering: WritableSignal<boolean> = signal(false);

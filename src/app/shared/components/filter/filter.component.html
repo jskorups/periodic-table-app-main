@@ -1,11 +1,9 @@
-<div class="filter-container">
-  <form [formGroup]="filterForm()">
-    <mat-form-field>
-      <input matInput [formControl]="filterForm().controls.filter" placeholder="Filter" />
-      @if (isFiltering())
-       {
-        <mat-spinner matSuffix  diameter="20"></mat-spinner>
-        }
-    </mat-form-field>
-  </form>
-</div>
+<form [formGroup]="filterForm()">
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Ex. boron" formControlName="filter" aria-labelledby="search-label" />
+    @if (isFiltering()) {
+      <mat-spinner matSuffix diameter="20" role="status" aria-label="Loading data"></mat-spinner>
+    }
+  </mat-form-field>
+</form>

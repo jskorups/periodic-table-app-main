@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -6,9 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatIconModule],
   templateUrl: './table-title.component.html',
-  styleUrl: './table-title.component.scss'
+  styleUrl: './table-title.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableTitleComponent {
-  title = input.required<string>();
-  icon = input<string>();
+  public title = input.required<string>();
+  public icon = input<string>();
 }

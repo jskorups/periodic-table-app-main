@@ -1,9 +1,9 @@
+@import "mixins";
+
 header {
+  @include flex(center, center, row);
   width: 100%;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-shadow: -1px 1px 3px rgba(0, 0, 0, 0.4);
 
   mat-icon {

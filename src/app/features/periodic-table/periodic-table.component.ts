@@ -10,7 +10,7 @@ import { TableTitle } from '../../shared/components/table/models/table-title.mod
 import { TableAction } from '../../core/models/action.model';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { filter } from 'rxjs';
-import { EditPeriodicTableRowComponent } from '../edit-periodic-table-row/edit-periodic-table-row.component';
+import { EditPeriodicTableRowComponent } from './edit-periodic-table-row/edit-periodic-table-row.component';
 import { FilterComponent } from '../../shared/components/filter/filter.component';
 import { FilterData } from '../../core/models/filter-data.model';
 import { JsonPipe } from '@angular/common';
@@ -22,9 +22,8 @@ import { JsonPipe } from '@angular/common';
   templateUrl: './periodic-table.component.html',
   styleUrl: './periodic-table.component.scss'
 })
-export class PeriodicTableComponent implements OnInit {
+export class PeriodicTableComponent<T> implements OnInit {
   public searchValue: WritableSignal<string> = signal('');
-  public isDataLoaded: WritableSignal<boolean> = signal(false);
   public displayedPeriodicTableData = computed(() => this.getFilteredPeriodicTableData());
   public periodicTableData: WritableSignal<PeriodicElement[]> = signal([]);
   public tableColumns: WritableSignal<TableColumn[]> = signal([]);
@@ -32,6 +31,7 @@ export class PeriodicTableComponent implements OnInit {
   private dataService = inject(DataService);
   private destroyRef = inject(DestroyRef);
   private tableService = inject(TableService);
+  public tableActions: WritableSignal<TableAction<PeriodicElement>[]> = signal([]);
 
   public handleFiltering(filterData: FilterData<PeriodicElement>): void {
     this.searchValue.set(filterData.searchValue);
@@ -46,6 +46,7 @@ export class PeriodicTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDataAndInitializeTable();
+    this.setTableActions();
   }
 
   private getDataAndInitializeTable(): void {
@@ -64,11 +65,11 @@ export class PeriodicTableComponent implements OnInit {
   }
 
   private initializeTableColumns(): void {
-    this.tableColumns.set(this.tableService.initializeTableColumns(this.periodicTableData(), this.tableActions));
+    this.tableColumns.set(this.tableService.initializeTableColumns(this.periodicTableData(), this.tableActions()));
   }
 
-  public tableActions: TableAction<PeriodicElement>[] = [
-    {
+  private setTableActions(): void {
+    this.tableActions.set([{
       name: 'Edit',
       action: (row: PeriodicElement) => {
         this.dialogService
@@ -82,13 +83,8 @@ export class PeriodicTableComponent implements OnInit {
             }
           });
       }
-    }
-  ];
-}
+    } as TableAction<PeriodicElement>]);
+  }
 
-// ng content -> tabeli -> ng content z selectorem aby wstrzyknac filtry pod title w tabeli
-// filtorwoanie danych i kasuje, pokazuje sie wyfiltrowane a po skasowaniu oryginalne
-// edytuje bez filtrow i zapis obiektu i zapisuje w tabeli  w oryginalenj tabeli
-// filtr na pozycji 'Neon' i edytuje, wpisuje 'Test' i save  -> brak wynikow, Test w tabeli oryginalnej
-// edycja Neon na 'test' i save i filtrowanie po test -> powinno byc 1 wynik
+}
 

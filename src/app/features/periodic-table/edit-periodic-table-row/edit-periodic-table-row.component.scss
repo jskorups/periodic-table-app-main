@@ -1,0 +1,20 @@
+@import "mixins";
+
+.container {
+  @include flex(center, center, column);
+
+  form {
+    @include flex(center, center, column);
+    padding: 1rem 3rem 0;
+
+    mat-form-field {
+      padding-bottom: 1rem;
+    }
+  }
+
+  button {
+    width: 6rem;
+    font-weight: bolder;
+    margin: 0 1rem 1rem;
+  }
+}

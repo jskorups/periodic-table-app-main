@@ -14,12 +14,14 @@ export class TableService<T extends Object> {
     const columns=  Object.keys(tableData[0]).map((key) => ({
       name: key.toLowerCase(),
       title: key,
+      width: key
     }));
 
     if (actions.length) {
         columns.push({
           name: 'actions',
           title: 'Actions',
+          width: 'auto'
         });
       }
 

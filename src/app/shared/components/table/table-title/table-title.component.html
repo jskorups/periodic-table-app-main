@@ -1,6 +1,6 @@
 <header>
   @if (icon()) {
-    <mat-icon aria-hidden="false" aria-label="Example home icon" [fontIcon]="icon() || ''"></mat-icon>
+    <mat-icon aria-hidden="true" [attr.aria-label]="'Example ' + icon() + ' icon'" [fontIcon]="icon() || ''"></mat-icon>
   }
   <h1>{{ title() }}</h1>
 </header>

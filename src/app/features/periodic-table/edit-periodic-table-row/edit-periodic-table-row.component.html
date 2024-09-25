@@ -1,0 +1,20 @@
+<div class="container">
+<h1>{{ title() }}</h1>
+  <form [formGroup]="editForm()">
+    @for (form of editFormControls(); track form) {
+      <mat-form-field appearance="fill">
+        <mat-label>{{ form | titlecase }}</mat-label>
+        <input matInput [formControlName]="form" [attr.aria-label]="form + '-label'" />
+        @if (editForm().controls[form].hasError("required") && editForm().controls[form].touched) {
+          <mat-error> {{ form | titlecase }} is required.</mat-error>
+        }
+      </mat-form-field>
+    }
+  </form>
+
+  <div mat-dialog-actions>
+    <button mat-fab (click)="cancel()" aria-label="Cancel the form">Cancel</button>
+    <button mat-fab color="primary" (click)="save()" [disabled]="editForm().invalid" aria-label="Save the form">Save</button>
+  </div>
+</div>
+```
