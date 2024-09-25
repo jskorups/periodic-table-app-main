@@ -1,0 +1,11 @@
+<div class="filter-container">
+  <form [formGroup]="filterForm()">
+    <mat-form-field>
+      <input matInput [formControl]="filterForm().controls.filter" placeholder="Filter" />
+      @if (isFiltering())
+       {
+        <mat-spinner matSuffix  diameter="20"></mat-spinner>
+        }
+    </mat-form-field>
+  </form>
+</div>

@@ -1,0 +1,21 @@
+
+@defer (when periodicTableData().length) {
+  <app-table
+    [tableTitleIconName]="tableTitleData.icon"
+    [columns]="tableColumns()"
+    [actions]="tableActions"
+    [dataSource]="displayedPeriodicTableData()"
+    class="container"
+  >
+  <app-filter filter class="filter"
+  [dataSource]="periodicTableData()"
+  (filterData)="handleFiltering($event)"
+  >
+
+ </app-filter>
+</app-table>
+} @placeholder (minimum 1s) {
+  <mat-spinner class="container"></mat-spinner>
+} @loading (after 100ms; minimum 1s) {
+  <mat-spinner class="container"></mat-spinner>
+}
